@@ -15,8 +15,13 @@
 
     </div>
     <div class="form-group">
-        <label th:text="${event.description}"></label>
+        <label th:text="${event.eventDetails.description}"></label>
             <input type="text" name="description" class="form-controls">
+
+    </div>
+    <div class="form-group">
+        <label th:text="${event.eventDetails.contactEmail}"></label>
+        <input type="text" name="contactEmail" class="form-controls">
 
     </div>
     <div class="form-group">

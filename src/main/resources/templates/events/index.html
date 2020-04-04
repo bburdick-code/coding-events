@@ -13,12 +13,16 @@
         <th>ID</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Contact Email</th>
+        <th>Category</th>
     </tr>
     </thead>
     <tr th:each="event : ${events}">
         <td th:text="${event.getId()}"></td>
         <td th:text="${event.getName()}"></td>
-        <td th:text="${event.getDescription()}"></td>
+        <td th:text="${event.eventDetails.getDescription()}"></td>
+        <td th:text="${event.eventDetails.contactEmail}"></td>
+        <td th:text="${event.eventCategory.name}"></td>
         <td>
             <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
         </td>

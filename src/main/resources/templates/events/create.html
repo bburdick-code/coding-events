@@ -3,18 +3,37 @@
 <head th:replace="fragments :: head"></head>
 <body class="container">
 
-    <header th:replace="fragments :: header"></header>
+<header th:replace="fragments :: header"></header>
 
 <form method="post">
     <div class="form-group">
         <label>Name
-            <input type="text" name="name" class="form-controls">
+            <input th:field="${event.name}" class="form-controls">
         </label>
+        <p class="error" th:errors="${event.name}"></p>
     </div>
     <div class="form-group">
         <label>Description
-            <input type="text" name="description" class="form-controls">
+            <input th:field="${event.eventDetails.description}" class="form-controls">
         </label>
+        <p class="error" th:errors="${event.eventDetails.description}"></p>
+    </div>
+    <div class="form-group">
+        <label>Email
+            <input th:field="${event.eventDetails.contactEmail}" class="form-controls">
+        </label>
+        <p class="error" th:errors="${event.eventDetails.contactEmail}"></p>
+    </div>
+    <div class="form-group">
+        <label>Type
+            <select th:field="${event.eventCategory}">
+                <option th:each="eventCategory : ${categories}"
+                        th:value="${eventCategory.id}"
+                        th:text="${eventCategory.name}"></option>
+            </select>
+
+        </label>
+        <p class="error" th:errors="${event.eventCategory}"></p>
     </div>
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-success">

@@ -1,51 +1,58 @@
 package org.launchcode.codingevents.models;
 
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
-public class Event {
+@Entity
+public class Event extends AbstractEntity {
 
-    static private int idCount = 1;
-    private int id;
-
+    @NotBlank(message = "Event name is required")
+    @Size(min = 3, max = 50, message = "Must be between 3-50 characters")
     private String name;
-    private String description;
 
-    public Event(String name, String description) {
-        this.id = idCount;
-        idCount++;
+    @OneToOne(cascade = CascadeType.ALL)
+    @Valid
+    @NotNull
+    private EventDetails eventDetails;
+
+    @ManyToOne
+    @NotNull(message = "Category is required")
+    private EventCategory eventCategory;
+
+    public Event(String name, EventCategory eventCategory) {
         this.name = name;
-        this.description = description;
+        this.eventCategory = eventCategory;
     }
+
+    public Event() { }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
-    public int getId() {
-        return id;
+    public EventDetails getEventDetails() {
+        return eventDetails;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return id == event.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setEventDetails(EventDetails eventDetails) {
+        this.eventDetails = eventDetails;
     }
 
     @Override
